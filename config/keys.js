@@ -1,3 +1,4 @@
 module.exports = {
-  mongodbURI: "mongodb://rahul:test@ds251827.mlab.com:51827/socialnetwork"
+  mongodbURI: "mongodb://rahul:test@ds251827.mlab.com:51827/socialnetwork",
+  secret: "secret"
 };
