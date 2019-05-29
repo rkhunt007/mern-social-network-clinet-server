@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 
@@ -31,7 +31,7 @@ app.use(passport.initialize());
 // Passport Config
 require("./config/passport")(passport);
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 app.use("/api/users", users);
 app.use("/api/profiles", profiles);
