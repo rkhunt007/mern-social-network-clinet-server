@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const passport = require("passport");
 const connectDB = require("./config/db");
 
@@ -10,11 +9,8 @@ const app = express();
 // connect DB
 connectDB();
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// parse application/json
-app.use(bodyParser.json());
+// Init middleware
+app.use(express.json({ extended: false }));
 
 const users = require("./routes/api/users");
 const posts = require("./routes/api/posts");

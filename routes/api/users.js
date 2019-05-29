@@ -6,9 +6,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+const { check, validationResult } = require('express-validator/check');
 
 // Load validations
-const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
 
 // @route   GET
@@ -19,12 +19,14 @@ router.get("/test", (req, res) => res.json({ msg: "users test works" }));
 // @route   POST
 // @desc    register
 // @access  public
-router.post("/register", (req, res) => {
-  const { errors, isValid } = validateRegisterInput(req.body);
-
-  // Check validations
-  if (!isValid) {
-    return res.status(400).json(errors);
+router.post("/register", [
+  check('email', 'Enter Valid Email').isEmail(),
+  check('password', 'Length should be greater than 6').isLength({ min: 6 }),
+  check('name', 'Name is required').not().isEmpty()
+], (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
 
   User.findOne({ email: req.body.email }).then(user => {
