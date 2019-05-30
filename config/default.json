@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://rahul:test@cluster0-vm7mk.mongodb.net/test?retryWrites=true"
+    "mongoURI": "mongodb+srv://rahul:test@cluster0-vm7mk.mongodb.net/test?retryWrites=true",
+    "jwtSecret": "secret"
 }
