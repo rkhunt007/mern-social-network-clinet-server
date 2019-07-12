@@ -4,13 +4,8 @@ const User = require("../../models/User");
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const keys = require("../../config/keys");
 const config = require("config");
-const passport = require("passport");
 const { check, validationResult } = require("express-validator/check");
-
-// Load validations
-const validateLoginInput = require("../../validations/login");
 
 // @route   POST api/users/
 // @desc    Register User
@@ -77,57 +72,6 @@ router.post(
 			console.error(err.message);
 			res.status(500).send("Server error");
 		}
-	}
-);
-
-// @route   POST login
-// @desc    Login user / return token
-// @access  public
-router.post("/login", (req, res) => {
-	const email = req.body.email;
-	const password = req.body.password;
-
-	User.findOne({ email }).then(user => {
-		const { errors, isValid } = validateLoginInput(req.body);
-
-		// Check validations
-		if (!isValid) {
-			return res.status(400).json(errors);
-		}
-
-		if (!user) {
-			errors.email = "User not found";
-			return res.status(404).json(errors);
-		}
-
-		bcrypt.compare(password, user.password).then(isMatch => {
-			if (isMatch) {
-				// Login success
-
-				// create payload
-				const payload = { id: user.id, name: user.name, avatar: user.avatar };
-				jwt.sign(payload, keys.secret, { expiresIn: 3600 }, (err, token) => {
-					res.status(200).json({
-						success: true,
-						token: "Bearer " + token
-					});
-				});
-			} else {
-				errors.password = "Incorrect password";
-				return res.status(400).json(errors);
-			}
-		});
-	});
-});
-
-// @route   GET login api/users/current
-// @desc    Return current user
-// @access  protected
-router.get(
-	"/current",
-	passport.authenticate("jwt", { session: false }),
-	(req, res) => {
-		res.json({ id: req.user.id, name: req.user.name, avatar: req.user.avatar });
 	}
 );
 

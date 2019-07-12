@@ -1,5 +1,4 @@
 const express = require("express");
-const passport = require("passport");
 const connectDB = require("./config/db");
 
 const PORT = process.env.PORT || 5000;
@@ -16,9 +15,6 @@ const users = require("./routes/api/users");
 const posts = require("./routes/api/posts");
 const profiles = require("./routes/api/profiles");
 const auth = require("./routes/api/auth");
-
-// Passport middleware
-app.use(passport.initialize());
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
