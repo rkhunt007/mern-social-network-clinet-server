@@ -20,9 +20,6 @@ const auth = require("./routes/api/auth");
 // Passport middleware
 app.use(passport.initialize());
 
-// Passport Config
-require("./config/passport")(passport);
-
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 app.use("/api/users", users);
