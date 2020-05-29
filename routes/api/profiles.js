@@ -1,4 +1,4 @@
- const express = require("express");
+const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
 const Profile = require("../../models/Profile");
@@ -193,7 +193,54 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
     const profile = await Profile.findOne({user: req.user.id});
     profile.experience = profile.experience.filter((exp) => exp.id !== req.params.exp_id);
     await profile.save();
-    res.json(profile)
+    res.json(profile);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route   PUT api/profile/education
+// @desc    edit profile education
+// @access  private
+router.put("/education", [
+  auth,
+  [
+    check('school', 'School is Required').not().isEmpty(),
+    check('degree', 'Degree is Required').not().isEmpty(),
+    check('filedofstudy', 'Field of Study is Required').not().isEmpty(),
+    check('from', 'From Date is Required').not().isEmpty(),
+    check('current', 'Current is Required').not().isEmpty(),
+  ]
+], async (req, res) => { 
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const {school, degree, filedofstudy, from, to, current, description} = req.body;
+    const edu = {school, degree, filedofstudy, from, to, current, description};
+    const profile = await Profile.findOne({user: req.user.id});
+    profile.education.unshift(edu);
+    await profile.save();
+
+    res.json(profile);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route   DELET api/profile/education
+// @desc    delete profile education
+// @access  private
+router.delete('/education/:edu_id', auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({user: req.user.id});
+    profile.education = profile.education.filter((exp) => exp.id !== req.params.edu_id);
+    await profile.save();
+    res.json(profile);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
