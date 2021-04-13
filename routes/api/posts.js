@@ -35,7 +35,6 @@ router.post("/", [
         res.json(post);
 
     } catch (error) {
-        console.log(error.message);
         res.status(500).json('Server Error');
     }
 
@@ -195,7 +194,6 @@ router.post("/comment/:id", [
         res.json(post.comments);
 
     } catch (error) {
-        console.log(error.message);
         res.status(500).json('Server Error');
     }
 
