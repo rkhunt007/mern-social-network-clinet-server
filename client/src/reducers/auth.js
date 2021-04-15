@@ -1,4 +1,4 @@
-import { REGISTER_FAIL, REGISTER_SUCCESS } from "../actions/types";
+import { REGISTER_FAIL, REGISTER_SUCCESS } from "../actions/types"; 
 
 const initialState = {
     token: localStorage.getItem('token'),
