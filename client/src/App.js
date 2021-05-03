@@ -1,19 +1,19 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Fragment, useEffect } from 'react';
-import { Landing } from './components/layout/Landing';
-import Navbar from './components/layout/Navbar';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import Alert from './components/layout/Alert';
-import DashBoard from './components/dashboard/Dashboard';
-import PrivateRoute from './components/routing/PrivateRoute';
 // Redux
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { loadUser } from './actions/auth';
+import './App.css';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import DashBoard from './components/dashboard/Dashboard';
+import Alert from './components/layout/Alert';
+import Landing from './components/layout/Landing';
+import Navbar from './components/layout/Navbar';
+import PrivateRoute from './components/routing/PrivateRoute';
 import store from './store';
 import setAuthToken from './utils/setAuthToken';
-import { loadUser } from './actions/auth';
 
-import './App.css';
 
 if (localStorage.token) {
     setAuthToken(localStorage.token);
