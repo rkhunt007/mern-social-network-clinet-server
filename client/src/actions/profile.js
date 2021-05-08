@@ -209,6 +209,73 @@ export const deleteAccount = () => async dispatch => {
             });
         }
     }
-    
+
+}
+
+// get all profiles
+export const getProfiles = () => dispatch => {
+
+    // dispatch({ type: CLEAR_PROFILE });
+
+    try {
+        const res = await axios.get('/api/profiles');
+        console.log('res', res);
+        dispatch({
+            type: GET_PROFILES,
+            payload: res.data
+        });
+
+    } catch (err) {
+
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+
+    }
+
+}
+
+// get profile by Id
+export const getProfileById = id => dispatch => {
+
+    try {
+        const res = await axios.get(`/api/profiles/users/${id}`);
+        console.log('res', res);
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data
+        });
+
+    } catch (err) {
+
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+
+    }
+
+}
+
+// get github repos
+export const getGithubRepos = username => dispatch => {
+
+    try {
+        const res = await axios.get(`/api/profiles/github/${username}`);
+
+        dispatch({
+            type: GET_REPOS,
+            payload: res.data
+        });
+
+    } catch (err) {
+
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+
+    }
 
 }
