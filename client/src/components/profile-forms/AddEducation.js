@@ -14,7 +14,7 @@ const AddEducation = props => {
         filedofstudy: '',
         from: '',
         to: '',
-        current: '',
+        current: false,
         description: ''
     });
 
