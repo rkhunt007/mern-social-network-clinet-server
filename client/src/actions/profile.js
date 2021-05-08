@@ -1,4 +1,4 @@
-import { GET_PROFILE, PROFILE_ERROR } from "./types"
+import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE } from "./types"
 import axios from "axios";
 import { setAlert } from "./alert";
 
@@ -59,6 +59,80 @@ export const createProfile = (formData, history, edit = false) => async dispatch
             payload: { msg: err.response.statusText, status: err.response.status }
         });
 
+    }
+
+}
+
+export const addExperience = (formData, history) => async dispatch => {
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    try {
+
+        const res = await axios.put('api/profiles/experience', formData, config);
+
+        dispatch(setAlert('Experience Added', 'success'));
+
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        });
+        history.push('/dashboard');
+
+    } catch (err) {
+        const errors = err.response.data.errors;
+
+        if (errors) {
+            errors.forEach(err =>
+                dispatch(setAlert(err.msg, 'danger'))
+            );
+        }
+
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+
+}
+
+export const addEducation = (formData, history) => async dispatch => {
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    try {
+
+        const res = await axios.put('api/profiles/education', formData, config);
+
+        dispatch(setAlert('Education Added', 'success'));
+
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        });
+        history.push('/dashboard');
+
+    } catch (err) {
+        const errors = err.response.data.errors;
+
+        if (errors) {
+            errors.forEach(err =>
+                dispatch(setAlert(err.msg, 'danger'))
+            );
+        }
+
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
     }
 
 }
