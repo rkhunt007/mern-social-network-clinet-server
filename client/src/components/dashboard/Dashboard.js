@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getCurrentProfile } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
-
+import DashboardActions from './DashboardActions';
 
 const Dashboard = ({getCurrentProfile, auth: { user }, profile: { profile, loading }}) => {
 
@@ -21,7 +21,7 @@ const Dashboard = ({getCurrentProfile, auth: { user }, profile: { profile, loadi
                 </Fragment>
             )
         } else {
-            return (<div>have profile</div>)
+            return (<div><DashboardActions /></div>)
         }
     }
 
