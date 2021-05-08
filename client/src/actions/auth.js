@@ -6,8 +6,6 @@ import setAuthToken from "../utils/setAuthToken";
 // Load User
 export const loadUser = () => async dispatch => {
 
-    console.log('actions:loadUser');
-
     if (localStorage.token) {
         setAuthToken(localStorage.token);
     }
@@ -26,8 +24,6 @@ export const loadUser = () => async dispatch => {
 
 // Register user 
 export const register = ({name, email, password}) => async dispatch => {
-
-    console.log('actions:register');
 
     const config = {
         headers: {
@@ -65,8 +61,6 @@ export const register = ({name, email, password}) => async dispatch => {
 
 // Login user 
 export const login = (email, password) => async dispatch => {
-
-    console.log('actions:login');
 
     const config = {
         headers: {

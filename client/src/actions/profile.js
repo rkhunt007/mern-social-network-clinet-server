@@ -21,3 +21,44 @@ export const getCurrentProfile = () => {
         }
     }
 }
+
+export const createProfile = (formData, history, edit = false) => async dispatch => {
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    try {
+
+        const res = await axios.post('api/profiles', formData, config);
+
+        dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
+
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data
+        });
+
+        if (!edit) {
+            history.push('/dashboard');
+        }
+
+    } catch (err) {
+        const errors = err.response.data.errors;
+
+        if (errors) {
+            errors.forEach(err =>
+                dispatch(setAlert(err.msg, 'danger'))
+            );
+        }
+
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+
+    }
+
+}
