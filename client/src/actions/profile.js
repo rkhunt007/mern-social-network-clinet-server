@@ -1,4 +1,4 @@
-import { CLEAR_PROFILE, GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE, ACCOUNT_DELETED } from "./types"
+import { CLEAR_PROFILE, GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE, ACCOUNT_DELETED, GET_PROFILES, GET_REPOS } from "./types"
 import axios from "axios";
 import { setAlert } from "./alert";
 
@@ -189,7 +189,7 @@ export const deleteAccount = () => async dispatch => {
     if (window.confirm('Are you sure? This can NOT be undone!')) {
         try {
 
-            const res = await axios.delete(`api/profiles`);
+            await axios.delete(`api/profiles`);
     
             dispatch({
                 type: CLEAR_PROFILE
@@ -213,19 +213,20 @@ export const deleteAccount = () => async dispatch => {
 }
 
 // get all profiles
-export const getProfiles = () => dispatch => {
+export const getProfiles = () => async dispatch => {
 
-    // dispatch({ type: CLEAR_PROFILE });
+    dispatch({ type: CLEAR_PROFILE });
 
     try {
         const res = await axios.get('/api/profiles');
-        console.log('res', res);
         dispatch({
             type: GET_PROFILES,
             payload: res.data
         });
 
     } catch (err) {
+
+        console.log('get profiles err', err)
 
         dispatch({
             type: PROFILE_ERROR,
@@ -237,11 +238,10 @@ export const getProfiles = () => dispatch => {
 }
 
 // get profile by Id
-export const getProfileById = id => dispatch => {
+export const getProfileById = id => async dispatch => {
 
     try {
-        const res = await axios.get(`/api/profiles/users/${id}`);
-        console.log('res', res);
+        const res = await axios.get(`/api/profiles/user/${id}`);
         dispatch({
             type: GET_PROFILE,
             payload: res.data
@@ -259,7 +259,7 @@ export const getProfileById = id => dispatch => {
 }
 
 // get github repos
-export const getGithubRepos = username => dispatch => {
+export const getGithubRepos = username => async dispatch => {
 
     try {
         const res = await axios.get(`/api/profiles/github/${username}`);
