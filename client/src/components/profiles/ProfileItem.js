@@ -10,7 +10,7 @@ const ProfileItem = ({ profile: { user: {_id, name, avatar}, status, company, lo
                 <h2>{name}</h2>
                 <p>{status} {company && <span> at {company}</span>}</p>
                 <p className="my-1">{location && <span> at {location}</span>}</p>
-                <Link to={`/profile/${_id}`} className="btn btn-primary">View Profile</Link>
+                <Link to={`/profiles/${_id}`} className="btn btn-primary">View Profile</Link>
             </div>
             <ul>
                 {skills.slice(0, 4).map((skill, index) => (

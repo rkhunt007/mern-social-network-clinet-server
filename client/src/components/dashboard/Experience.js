@@ -11,8 +11,8 @@ const Experience = ({ experience, deleteExperience }) => {
             <td>{exp.title}</td>
             <td className="hide-sm">{exp.company}</td>
             <td className="hide-sm">
-                <Moment format="yyyy-MM-DD">{exp.from}</Moment> - 
-                { exp.to ? (<Moment format="yyyy-MM-DD">{exp.to}</Moment>) : ' Now'}
+                <Moment format="YYYY/MM/DD">{exp.from}</Moment> - 
+                { exp.to ? (<Moment format="YYYY/MM/DD">{exp.to}</Moment>) : ' Now'}
             </td>
             <td>
                 <button className="btn btn-danger" onClick={() => deleteExperience(exp._id)}>

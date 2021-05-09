@@ -34,7 +34,7 @@ const Profile = ({ match, getProfileById, auth, profile: { profile, loading} }) 
                                         profile.experience.map((experience) => {
                                             return (<div key={experience._id}>
                                                 <h3 class="text-dark">{experience.company}</h3>
-                                                <p><Moment format="YYYY-MM-DD">{experience.from}</Moment> - {experience.to ? (<span><Moment format="YYYY-MM-DD">{experience.to}</Moment></span>) : (<span>Now</span>)}</p>
+                                                <p><Moment format="YYYY/MM/DD">{experience.from}</Moment> - {experience.to ? (<span><Moment format="YYYY/MM/DD">{experience.to}</Moment></span>) : (<span>Now</span>)}</p>
                                                 <p><strong>Position: </strong>{experience.title}</p>
                                                 <p>
                                                 <strong>Description: </strong>{experience.description}
@@ -55,7 +55,7 @@ const Profile = ({ match, getProfileById, auth, profile: { profile, loading} }) 
                                         profile.education.map((education) => {
                                             return (<div key={education._id}>
                                                 <h3 class="text-dark">{education.school}</h3>
-                                                <p><Moment format="YYYY-MM-DD">{education.from}</Moment> - {education.to ? (<span><Moment format="YYYY-MM-DD">{education.to}</Moment></span>) : (<span>Now</span>)}</p>
+                                                <p><Moment format="YYYY/MM/DD">{education.from}</Moment> - {education.to ? (<span><Moment format="YYYY/MM/DD">{education.to}</Moment></span>) : (<span>Now</span>)}</p>
                                                 <p><strong>Degree: </strong>{education.degree}</p>
                                                 <p><strong>Field of Study: </strong>{education.filedofstudy}</p>
                                                 <p>
